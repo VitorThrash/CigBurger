@@ -13,8 +13,7 @@
             <select name="select-restaurant" id="select-restaurant" class="form-select">
                 <option value=""></option>
                 <option value="">Restaurante 1</option>
-                <option value="">Restaurante 2</option>
-                <option value="">Restaurante 3</option>
+                <option value="">Restaurante 2</option>              
             </select>
         </div>
 
