@@ -17,6 +17,17 @@ class Auth extends BaseController
         return view('teste');
     }
 
+    public function teste_db() {
+        $db = \Config\Database::connect();
+        
+        $results = $db->query("SELECT * FROM users")->getResult();
+        $data ['users'] = $results;
+        return view('teste_db', $data);
+        
+    }
+
+
+
     }
 
 

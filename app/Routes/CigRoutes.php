@@ -10,5 +10,6 @@ $routes = Services::routes();
 
 $routes->get('/', 'Auth::index');
 $routes->get('/teste', 'Auth::teste');
+$routes->get('/teste_db', 'Auth::teste_db');
 
 
