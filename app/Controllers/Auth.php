@@ -11,4 +11,13 @@ class Auth extends BaseController
     {
         return view('auth/login_frm');
     }
+
+    public function login_submit() {
+        echo 'login submit';
+    }
+
+
+    public function logout() {
+         echo 'logout';
+  }
 }
