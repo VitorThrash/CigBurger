@@ -7,29 +7,8 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Auth extends BaseController
 {
-    public function index()
+    public function login()
     {
-       return view('auth/login_frm');
+        return view('auth/login_frm');
     }
-
-    public function teste() {
-
-        return view('teste');
-    }
-
-    public function teste_db() {
-        $db = \Config\Database::connect();
-        
-        $results = $db->query("SELECT * FROM users")->getResult();
-        $data ['users'] = $results;
-        return view('teste_db', $data);
-        
-    }
-
-
-
-    }
-
-
-
-
+}
