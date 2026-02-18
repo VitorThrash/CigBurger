@@ -8,56 +8,57 @@ class RestaurantTable extends Migration
 {
     public function up()
     {
-        //create restaurante table
         $this->forge->addField([
             'id' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'auto_increment' => true
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'auto_increment' => true,
             ],
+
             'name' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 50,
             ],
+
             'address' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 250,
             ],
+
             'phone' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 20,
             ],
+
             'email' => [
-                'type' => 'VARCHAR',
-                'constraint' => 50,
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
             ],
-            'create_at' => [
+
+            // Timestamps padrão do CodeIgniter
+            'created_at' => [
                 'type' => 'DATETIME',
-                'null'  => true
+                'null' => true,
             ],
-            'update_at' => [
+
+            'updated_at' => [
                 'type' => 'DATETIME',
-                'null'  => true
+                'null' => true,
             ],
-            'delete_at' => [
+
+            'deleted_at' => [
                 'type' => 'DATETIME',
-                'null'  => true
-            ]
+                'null' => true,
+            ],
         ]);
 
-        //primary key
-        $this->forge->addKey('id',true);
-
-        //create table
+        $this->forge->addKey('id', true);
         $this->forge->createTable('restaurants');
-
-
-
     }
 
     public function down()
     {
-        //drop table
         $this->forge->dropTable('restaurants');
     }
 }

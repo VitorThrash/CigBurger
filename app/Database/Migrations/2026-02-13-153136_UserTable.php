@@ -8,83 +8,94 @@ class UserTable extends Migration
 {
     public function up()
     {
-        //create restaurante table
         $this->forge->addField([
             'id' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'auto_increment' => true
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'auto_increment' => true,
             ],
+
             'id_restaurant' => [
-                'type' => 'VARCHAR',
+                'type'       => 'INT',
                 'constraint' => 11,
+                'unsigned'   => true,
             ],
+
             'username' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 50,
             ],
-            'passwrd' => [
-                'type' => 'VARCHAR',
-                'constraint' => 250,
+
+            'password' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
             ],
+
             'name' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 50,
             ],
+
             'email' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+            ],
+            'phone' => [
+                'type' => 'INT',
                 'constraint' => 50,
             ],
+        
             'roles' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => 500,
             ],
+
             'blocked_until' => [
                 'type' => 'DATETIME',
-                'null'  => true
+                'null' => true,
             ],
-               'active' => [
-                'type' => 'INT',
-                'constraint' => 10,
+
+            'active' => [
+                'type'       => 'INT',
+                'constraint' => 1,
+                'default'    => 1,
             ],
+
             'code' => [
-                'type' => 'INT',
+                'type'       => 'INT',
                 'constraint' => 20,
+                'null'       => true,
             ],
+
             'last_login' => [
                 'type' => 'DATETIME',
-                'null'  => true
+                'null' => true,
             ],
-            'create_at' => [
+
+            // Timestamps padrão do CodeIgniter
+            'created_at' => [
                 'type' => 'DATETIME',
-                'null'  => true
+                'null' => true,
             ],
-            'update_at' => [
+
+            'updated_at' => [
                 'type' => 'DATETIME',
-                'null'  => true
+                'null' => true,
             ],
-            'delete_at' => [
+
+            'deleted_at' => [
                 'type' => 'DATETIME',
-                'null'  => true
-            ]
-            
+                'null' => true,
+            ],
         ]);
 
-        //primary key
-        $this->forge->addKey('id',true);
-
-        //create table
+        $this->forge->addKey('id', true);
         $this->forge->createTable('users');
-
-
-
     }
 
     public function down()
     {
-         $this->forge->dropTable('users');
+        $this->forge->dropTable('users');
     }
-
-
-    }
-
+}
