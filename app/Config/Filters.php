@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\UserIsLoggedIn;
 use CodeIgniter\Config\Filters as BaseFilters;
 use CodeIgniter\Filters\Cors;
 use CodeIgniter\Filters\CSRF;
@@ -34,6 +35,7 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'userisloggedin'=> UserIsLoggedIn::class
     ];
 
     /**
@@ -50,9 +52,18 @@ class Filters extends BaseFilters
      * @var array{before: list<string>, after: list<string>}
      */
     public array $required = [
+        'UserIsLoggedIn' => [
         'before' => [
+            'dashboard/*',
+            'perfil/*',
+        ],
+        'except' => [
+            'auth/login',
+            'auth/login_submit',
+            'auth/logout',
+        ],
             'forcehttps', // Force Global Secure Requests
-            'pagecache',  // Web Page Caching
+            'pagecache'  // Web Page Caching
         ],
         'after' => [
             'pagecache',   // Web Page Caching

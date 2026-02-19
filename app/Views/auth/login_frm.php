@@ -7,28 +7,39 @@
         <img src="<?= base_url('assets/images/logo.png') ?>" alt="Logo">
     </div>
 
-    <form action="#" method="post">
-        <div class="mb-3">
-            <p class="mb-2">Restaurante</p>
-            <select name="select-restaurant" id="select-restaurant" class="form-select">
-                <option value=""></option>
-                <option value="">Restaurante 1</option>
-                <option value="">Restaurante 2</option>              
-            </select>
-        </div>
+    <?= form_open('/auth/login_submit') ?>
+    <div class="mb-3">
+        <p class="mb-2">Restaurante</p>
+        <select name="select_restaurant" id="select_restaurant" class="form-select">
+            <option value=""></option>
+            <?php foreach ($restaurants as $restaurant): ?>
+                <?php
+                // Verificamos se o ID deste restaurante é o mesmo que está na sessão/flashdata
+                $selected = ($select_restaurant == $restaurant->id) ? 'selected' : '';
+                ?>
+                <option value="<?= Encrypt($restaurant->id) ?>" <?= $selected ?>>
+                    <?= $restaurant->name ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <?= display_errors('select_restaurant', $validation_errors) ?>
 
-        <hr>
+    </div>
 
-        <div class="mb-3">
-            <input class="form-control" type="email" id="text-username" name="text-username" placeholder="Email">
-        </div>
-        <div class="mb-3">
-            <input class="form-control" type="password" id="text-password" name="text-password" placeholder="Senha">
-        </div>
-        <div class="mb-3">
-            <input type="submit" class="btn-login" value="ENTRAR">
-        </div>
-    </form>
+    <hr>
+
+    <div class="mb-3">
+        <input class="form-control" type="text" id="text_username" name="text_username" placeholder="Usuário" value="<?= old(key: 'text_username') ?>">
+        <?= display_errors('text_username', $validation_errors) ?>
+    </div>
+    <div class="mb-3">
+        <input class="form-control" type="password" id="text_password" name="text_password" placeholder="Senha">
+        <?= display_errors('text_password', $validation_errors) ?>
+    </div>
+    <div class="mb-3">
+        <input type="submit" class="btn-login" value="ENTRAR">
+    </div>
+    <?= form_close() ?>
 
     <div class="text-center">
         <p>Não tem conta? <a href="#" class="login-link">Cadastre-se</a></p>

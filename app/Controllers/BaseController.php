@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
@@ -20,7 +19,7 @@ use Psr\Log\LoggerInterface;
  */
 abstract class BaseController extends Controller
 {
-       protected $helpers = ['form'];
+       protected $helpers = ['form','encryption_helper','functions_helper'];
     /**
      * Be sure to declare properties for any property fetch you initialized.
      * The creation of dynamic property is deprecated in PHP 8.2.
