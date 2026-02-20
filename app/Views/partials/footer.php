@@ -5,7 +5,7 @@
                     <i class="fa-solid fa-triangle-exclamation me-2 text-warning"></i>Lorem ipsum dolor sit amet.
                 </div>
                 <div class="col-lg-6 col-12 text-end">
-                    CigBurger Backoffice &copy; 2030
+                    CigBurger Backoffice &copy;2026
                 </div>
             </div>
         </div>

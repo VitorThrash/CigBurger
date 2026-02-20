@@ -7,12 +7,12 @@
         <img src="<?= base_url('assets/images/logo.png') ?>" alt="Logo">
     </div>
 
-    <?= form_open('/auth/login_submit') ?>
+    <?= form_open('/auth/login_submit') ?> <!--Helper-->
     <div class="mb-3">
         <p class="mb-2">Restaurante</p>
         <select name="select_restaurant" id="select_restaurant" class="form-select">
             <option value=""></option>
-            <?php foreach ($restaurants as $restaurant): ?>
+            <?php foreach ($restaurants as $restaurant): ?>Usuários
                 <?php
                 // Verificamos se o ID deste restaurante é o mesmo que está na sessão/flashdata
                 $selected = ($select_restaurant == $restaurant->id) ? 'selected' : '';
@@ -21,7 +21,7 @@
                     <?= $restaurant->name ?>
                 </option>
             <?php endforeach; ?>
-        </select>
+        </select>Administrar
         <?= display_errors('select_restaurant', $validation_errors) ?>
 
     </div>
@@ -45,5 +45,13 @@
         <p>Não tem conta? <a href="#" class="login-link">Cadastre-se</a></p>
         <p><a href="#" class="login-link">Reperar senha</a></p>
     </div>
+
+    <?php if(!empty($login_error)):?>
+        <div class=" alert alert-danger text-center p-1">
+        <?= $login_error ?>
+</div>
+    <?php endif; ?>
+
+
 </div>
 <?= $this->endSection() ?>

@@ -3,7 +3,7 @@
 
 function display_errors($field, $errors)
 {
-    if(empty($errors)){ // aqui estava "erros"
+    if(empty($errors)){ 
         return;
     }
 

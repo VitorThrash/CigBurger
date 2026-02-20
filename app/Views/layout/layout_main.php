@@ -34,7 +34,7 @@
         </nav>
 
         <!--content-->
-        <div class="content p-4">
+        <div class="content p-4 flex-fill">
         <?= $this->renderSection('content') ?>
         </div>
     </section>
@@ -48,7 +48,7 @@
     <script src="<?= base_url('assets/libs/bootstrap/bootstrap.bundle.min.js')  ?>"></script>
 
     <script>
-        document.querySelector(".btn-main-menu").addEventListener("click", () => {
+            document.querySelector(".btn-main-menu").addEventListener("click", () => {
             document.querySelector(".main-menu").classList.toggle("show");
             document.querySelector(".content").classList.toggle("show");
         })
@@ -57,4 +57,4 @@
 
 </body>
 
-</html>
+</html> 

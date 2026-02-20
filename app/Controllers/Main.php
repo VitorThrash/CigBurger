@@ -9,7 +9,9 @@ class Main extends BaseController
 {
     public function index()
     {
-            echo 'CigBurger';
+        return view ('dashboard/home');
     }
-}
+
+
+    }
 

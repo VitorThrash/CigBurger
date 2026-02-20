@@ -1,4 +1,4 @@
-:root{
+:root {
     --top-bar-bg-color: #880000;
     --top-bar-fg-color: #fff;
 
@@ -23,6 +23,14 @@
     font-family: 'Rajdhani', sans-serif;
 }
 
+body {
+    
+    background-color: var(--content-bg-color);
+}
+
+
+
+
 .top-bar {
     background: var(--top-bar-bg-color);
     color: var(--top-bar-fg-color);
@@ -34,6 +42,7 @@
     text-decoration: none;
     transition: color 0.3s ease;
 }
+
 .top-bar a:hover {
     color: var(--color-white);
 }
@@ -57,7 +66,7 @@
 .main-menu {
     background: var(--menu-bg-color);
     color: var(--color-white);
-    min-height: 100vh;
+    min-height: 90vh;
     min-width: 250px;
     z-index: 1000;
     transition: transform 0.3s ease;
@@ -93,12 +102,12 @@
     background: var(--color-white);
     color: var(--color-black);
     padding: 20px;
-    margin: 5px;
+    margin: 5px 0px;
     border-radius: 5px;
     box-shadow: var(--shadow);
 }
 
-.content-title{
+.content-title {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 20px;
@@ -116,6 +125,7 @@
     text-decoration: none;
     transition: background 0.2s ease;
 }
+
 .btn-cig:hover {
     background: var(--menu-bg-color);
 }
@@ -129,6 +139,7 @@
     text-decoration: none;
     transition: background 0.2s ease;
 }
+
 .btn-cig-outline:hover {
     background: var(--top-bar-bg-color);
     color: var(--color-white)
@@ -143,7 +154,7 @@
 }
 
 /* responsive */
-@media (max-width: 768px){
+@media (max-width: 768px) {
     .main-menu {
         position: fixed;
         transform: translateX(-250px);
