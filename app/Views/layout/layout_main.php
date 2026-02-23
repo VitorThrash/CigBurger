@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CigBurger Backoffice</title>
+    <title>CigBurger Backoffice  - <?= !empty($title) ? $title :'' ?></title>
     <!--Favicon-->
     <link rel="shortcut icon" href="<?= base_url('assets/images/logo.png') ?>" type="image/png">
 
