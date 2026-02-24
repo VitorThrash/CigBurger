@@ -3,18 +3,28 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\ProductModel;
 
 
-class Products extends BaseController
+
+class Product extends BaseController
 {
     public function index()
     {
-        $data = [
+        $product_model = new ProductModel();
+
+         $data = [
             'title' => 'Produtos',
             'page'  => 'Produtos'
         ];
+        
+        $data['products'] = $product_model
+            ->where('id_restaurant', session()->user['id_restaurant'])
+            ->findAll();
 
-        return view('dashboard/products/index', $data);
+       
+     
+        return view('dashboard/product/index', $data);
     }
 
     public function new_product()
@@ -23,10 +33,20 @@ class Products extends BaseController
             'title' => 'Produtos',
             'page'  => 'Novo produto'
         ];
-           //validão do formulário
-        $data ['validation_errors'] = session()->getFlashdata('validation_errors');
+        //validão do formulário
+        $data['validation_errors'] = session()->getFlashdata('validation_errors');
 
-        return view('dashboard/products/new_product_frm', $data);
+
+        $product_model = new ProductModel();
+        $data['categories'] = $product_model
+        ->where('id_restaurant', session()->user[ 'id_restaurant'])
+        ->select('category')
+        ->distinct()
+        ->findAll();
+
+
+
+        return view('dashboard/product/new_product_frm', $data);
     }
 
     public function new_submit()
@@ -113,9 +133,47 @@ class Products extends BaseController
 
         ]);
 
-         if(!$validation) {
-            return redirect()->back()->withInput()->with('validation_errors',$this->validator->getErrors());
-            
-         }
+        if (!$validation) {
+            return redirect()->back()->withInput()->with('validation_errors', $this->validator->getErrors());
+        }
+
+
+        //checkar produto
+
+        $product_model = new ProductModel();
+        $product = $product_model
+            ->where('name', $this->request->getPost('text_name'))
+            ->where('id_restaurant', session()->user['id_restaurant'])
+            ->first();
+
+        if ($product) {
+            return redirect()->back()->withInput()->with('validation_errors', ['text_name' => 'Já existe outro produto com o mesmo nome nesse restaurante']);
+        }
+
+        //upload de imagem
+
+        $file_image = $this->request->getFile('file_image');
+        $file_image->move(ROOTPATH . 'public/assets/images/products', $file_image->getName(), true);
+
+        //preparar data para o insert
+        $data = [
+            'id_restaurant' => session()->user['id_restaurant'],
+            'name' => $this->request->getPost('text_name'),
+            'description' => $this->request->getPost('text_description'),
+            'category' => $this->request->getPost('text_category'),
+            'price' => $this->request->getPost('text_price'),
+            'promotion' => $this->request->getPost('text_promotion'),
+            'stock' => $this->request->getPost('text_initial_stock'),
+            'availability' => $this->request->getPost('check_available') ? 1 : 0,
+            'stock_min_limit' => $this->request->getPost('text_stock_minimum_limit'),
+            'image' => $file_image->getName()
+        ];
+
+
+        //insert data
+        $product_model->insert($data);
+
+        //redirect
+        return redirect()->to('/product');
     }
 }
