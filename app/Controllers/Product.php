@@ -13,17 +13,17 @@ class Product extends BaseController
     {
         $product_model = new ProductModel();
 
-         $data = [
+        $data = [
             'title' => 'Produtos',
             'page'  => 'Produtos'
         ];
-        
+
         $data['products'] = $product_model
             ->where('id_restaurant', session()->user['id_restaurant'])
             ->findAll();
 
-       
-     
+
+
         return view('dashboard/product/index', $data);
     }
 
@@ -39,10 +39,10 @@ class Product extends BaseController
 
         $product_model = new ProductModel();
         $data['categories'] = $product_model
-        ->where('id_restaurant', session()->user[ 'id_restaurant'])
-        ->select('category')
-        ->distinct()
-        ->findAll();
+            ->where('id_restaurant', session()->user['id_restaurant'])
+            ->select('category')
+            ->distinct()
+            ->findAll();
 
 
 
@@ -175,5 +175,116 @@ class Product extends BaseController
 
         //redirect
         return redirect()->to('/product');
+    }
+
+    public function edit($enc_id)
+    {
+        $id = Decrypt($enc_id);
+        if (empty($id)) {
+            return redirect()->to('/product');
+
+            echo $id;
+        }
+        $data = [
+            'title' => 'Produtos',
+            'page'  => 'Editar produto'
+        ];
+
+        //form validation
+        $data['validation_errors'] = session()->getFlashdata('validation_errors');
+
+
+        //get product data
+        $product_model = new ProductModel();
+        $data['product'] = $product_model->find($id);
+
+        //get distinct cartegories
+        $data['categories'] = $product_model
+            ->where('id_restaurant', session()->user['id_restaurant'])
+            ->select('category')
+            ->distinct()
+            ->findAll();
+
+
+        //checkar se a imagem existe
+        if (!file_exists('./assets/images/products/' . $data['product']->image)) {
+            $data['product']->image = 'no_image.png';
+        }
+
+        return view('dashboard/product/edit_product_frm', $data);
+    }
+
+
+    public function edit_submit()
+    {
+             $validation = $this->validate([
+            // input fields
+            'text_name' => [
+                'label' => 'nome do produto',
+                'rules' => 'required|min_length[3]|max_length[100]',
+                'errors' => [
+                    'required' => 'O campo {field} é obrigatório',
+                    'min_length' => 'O campo {field} deve ter no mínimo 3 caracteres',
+                    'max_length' => 'O campo {field} deve ter no máximo 100 caracteres'
+                ]
+            ],
+            'text_description' => [
+                'label' => 'descrição do produto',
+                'rules' => 'required|min_length[3]|max_length[200]',
+                'errors' => [
+                    'required' => 'O campo {field} é obrigatório',
+                    'min_length' => 'O campo {field} deve ter no mínimo 3 caracteres',
+                    'max_length' => 'O campo {field} deve ter no máximo 200 caracteres'
+                ]
+            ],
+            'text_category' => [
+                'label' => 'categoria do produto',
+                'rules' => 'required|min_length[3]|max_length[50]',
+                'errors' => [
+                    'required' => 'O campo {field} é obrigatório',
+                    'min_length' => 'O campo {field} deve ter no mínimo 3 caracteres',
+                    'max_length' => 'O campo {field} deve ter no máximo 50 caracteres'
+                ]
+            ],
+            'text_price' => [
+                'label' => 'preço do produto',
+                'rules' => 'required|regex_match[/^\d+\,\d{2}$/]',
+                'errors' => [
+                    'required' => 'O campo {field} é obrigatório',
+                    'regex_match' => 'O campo {field} deve ser um número com o formato x,xx',
+                ]
+            ],
+            'text_promotion' => [
+                'label' => 'promoção do produto',
+                'rules' => 'required|greater_than[-1]|less_than[100]',
+                'errors' => [
+                    'required' => 'O campo {field} é obrigatório',
+                    'greater_than' => 'O campo {field} deve ser um número maior que {param}',
+                    'less_than' => 'O campo {field} deve ser um número menor que {param}',
+                ]
+            ],
+            'text_stock_minimum_limit' => [
+                'label' => 'limite mínimo de estoque do produto',
+                'rules' => 'required|greater_than[99]',
+                'errors' => [
+                    'required' => 'O campo {field} é obrigatório',
+                    'greater_than' => 'O campo {field} deve ser um número maior que {param}',
+                ]
+            ]
+
+        ]);
+
+        $id = Decrypt($this->request->getPost('id_product'));
+            if(empty($id)) {
+                     return redirect()->to('/products');
+            }
+
+
+        if (!$validation) {
+            return redirect()->back()->withInput()->with('validation_errors', $this->validator->getErrors());
+        }
+
+            echo "ok";
+
     }
 }

@@ -179,3 +179,8 @@ body {
 .overflow-hidden{
     overflow: hidden;
 }
+
+.color-red {
+    color: rgb(143, 6, 6);
+    
+}
