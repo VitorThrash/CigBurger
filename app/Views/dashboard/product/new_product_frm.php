@@ -12,7 +12,7 @@
         <div class="col-lg-4 col-12 px-5 pt-5">
 
             <div class="text-center">
-                <img class="product-image img-fluid" id="product_image">
+                <img src = "<?= base_url('assets/images/products/no_image.png') ?>" class="product-image img-fluid" id="product_image">
             </div>
 
             <div class="mt-3 text-start">

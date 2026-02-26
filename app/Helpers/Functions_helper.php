@@ -27,3 +27,16 @@ function normalize_price($price){
 
 
 }
+
+
+
+function prefixed_product_file_name($file_name) {
+
+        //criar um prefixo para os restaurante
+
+        $prefix = 'rest_' . str_pad(session()->user['id_restaurant'], 5,'0', STR_PAD_LEFT);
+            return $prefix. '_' . $file_name;
+
+
+
+}

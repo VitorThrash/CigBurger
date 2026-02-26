@@ -31,7 +31,7 @@
             <div class="mb-3">
                 <label class="form-label">Nome do produto</label>
                 <input type="text" name="text_name" id="text_name"
-                    class="form-control" placeholder="Nome do produto" value="<?= old('text_name',$product->name) ?>">
+                    class="form-control" placeholder="Nome do produto" value="<?= old('text_name', $product->name) ?>">
 
                 <?= display_errors('text_name', $validation_errors) ?>
             </div>
@@ -40,7 +40,7 @@
             <div class="mb-3">
                 <label class="form-label">Descrição do produto</label>
                 <input type="text" name="text_description" id="text_description"
-                    class="form-control" placeholder="Descrição do produto" value="<?= old('text_description',$product->description) ?>">
+                    class="form-control" placeholder="Descrição do produto" value="<?= old('text_description', $product->description) ?>">
 
                 <?= display_errors('text_description', $validation_errors) ?>
             </div>
@@ -55,14 +55,14 @@
                             name="text_category"
                             id="text_category"
                             class="form-control"
-                            placeholder="Categoria" value="<?= old('text_category',$product->category) ?>">
+                            placeholder="Categoria" value="<?= old('text_category', $product->category) ?>">
                         <?= display_errors('text_category', $validation_errors) ?>
-                        
+
                         <datalist id="list_categories">
 
-                            <?php foreach($categories as $category):?>
+                            <?php foreach ($categories as $category): ?>
                                 <option value="<?= $category->category ?>">
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
 
                         </datalist>
                     </div>
@@ -84,7 +84,7 @@
 
                 <div class="col-lg-6 col-12 align-self-center mb-3">
                     <input type="checkbox" name="check_available"
-                        id="check_available"<?= $product-> availability ? 'checked' : ''?>>
+                        id="check_available" <?= $product->availability ? 'checked' : '' ?>>
 
                     <label class="form-label">Produto disponível.</label>
                 </div>
@@ -95,7 +95,7 @@
                     <input type="text" name="text_promotion"
                         id="text_promotion"
                         class="form-control"
-                        placeholder="Promoção" value="<?= old('text_promotion',intval($product->promotion) )?>">
+                        placeholder="Promoção" value="<?= old('text_promotion', intval($product->promotion)) ?>">
 
                     <?= display_errors('text_promotion', $validation_errors) ?>
                 </div>
@@ -109,7 +109,7 @@
                     <input type="text" name="text_stock_minimum_limit"
                         id="text_stock_minimum_limit"
                         class="form-control"
-                        placeholder="Limite mínimo de estoque" value="<?= old('text_stock_minimum_limit',$product->stock) ?>">
+                        placeholder="Limite mínimo de estoque" value="<?= old('text_stock_minimum_limit', $product->stock) ?>">
                     <?= display_errors('text_stock_minimum_limit', $validation_errors) ?>
                 </div>
 
@@ -138,7 +138,39 @@
 
     <?= form_close() ?>
 
+    <!--Caso tenha outro produto na loja, aparece uma msg de erro na tela-->
+    <?php if (!empty($server_error)): ?>
+
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger p-2">
+                <i class="fa-solid fa-triangle-exclamation me-2"></i><?= $server_error ?>
+            </div>
+
+        </div>
+    </div>
+
+<?php endif;  ?>
+
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
     window.addEventListener('DOMContentLoaded', function() {
