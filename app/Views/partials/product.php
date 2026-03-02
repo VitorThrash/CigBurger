@@ -20,35 +20,45 @@
                 <p class="m-0"><?= $product->description ?></p>
                 <p class="m-0 opacity-50"><?= $product->category ?></p>
 
-                <?php if ($product->promotion == 0) : ?>
+                <?php if ($product->promotion == 0): ?>
 
                     <h3 class="m-0 text-primary"><strong><?= normalize_price($product->price) . '$' ?></strong></h3>
                 <?php else : ?>
 
-                    <s><h3 class="color-red m-0"><?= normalize_price($product->price) . '$' ?></s>
+                    <s>
+                        <h3 class="color-red"><?= normalize_price($product->price) . '$' ?>
+                    </s>
 
-                     <span class="text-primary"><strong> <?= normalize_price(calculate_promotion($product->price, $product->promotion)) ?>$</strong></span></h3>
+                    <span class="text-primary "><strong> <?= normalize_price(calculate_promotion($product->price, $product->promotion)) ?>$</strong></span></h3>
+                <?php endif; ?>
+
+                <!--Icons que aparece abaixo dos preços-->
+                <div class="my-2">
+                    <!--promotion-->
+                    <?php if ($product->promotion > 0) : ?>
+                        <span class="badge bg-success">Com promoção de <?= intval($product->promotion) ?> %</span>
                     <?php endif; ?>
-                    
-                    <!--Icons que aparece abaixo dos preços-->
-                    <div class="my-2">
-                            <!--promotion-->
-                             <?php if($product ->promotion > 0) : ?>
-                                 <span class="badge bg-success">Com promoção de <?= intval($product->promotion) ?> %</span>
-                             <?php endif;?>
 
 
-                             <!--Stock-->
-                             <span class="badge bg-dark">
-                                <?= $product->stock ?>
-                                <?= $product->stock == 1 ? 'unidade' : 'unidades' ?>
-                            </span>
+                    <!--Stock-->
+                    <span class="badge bg-dark">
+                        <?= $product->stock ?>
+                        <?= $product->stock == 1 ? 'unidade' : 'unidades' ?>
+                    </span>
+
+                    <?php if ($product->stock <= $product->stock_min_limit): ?>
+                        <span class="badge bg-danger">Estoque reduzido</span>
+                    <?php endif; ?>
+
+                    <!--availability-->
+                    <?php if (!$product->availability): ?>
+                        <span class="badge bg-warning text-dark">Produto indisponível</span>
+                    <?php endif; ?>
+
+                </div>
 
 
-                    </div>
-                    
 
-                
                 <div class="text-end align-items-bottom">
                     <a href="<?= site_url('product/edit/' . Encrypt($product->id))  ?>" class="btn btn-sm btn-outline-secondary px-3 m-1"><i class="fa-regular fa-pen-to-square me-2"></i>Editar</a>
                     <a href="<?= site_url('stocks/product/' . Encrypt($product->id))  ?>" class="btn btn-sm btn-outline-secondary px-3 m-1"><i class="fa-solid fa-cubes-stacked me-2"></i>Stock</a>

@@ -347,4 +347,23 @@ class Product extends BaseController
 
         return redirect()->to('/product');
     }
+
+
+    public function delete($enc_id)
+    {           
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
 }
