@@ -350,20 +350,42 @@ class Product extends BaseController
 
 
     public function delete($enc_id)
-    {           
+    {
+        $id = Decrypt($enc_id);
+        if(empty($id)) {
+            return redirect()->to('/product');
+          }
+            
+        $product_model = new ProductModel();
+        $product = $product_model->find($id);                    
+           if(!$product) {
+             return redirect()->to('/product');
+           }
 
+            $data = [
+                'title' => 'Produtos',
+                'page' => 'Eliminar produto',
+                'product' => $product
+                 ];
 
+            return view('dashboard/product/delete_product', $data);
+        }
 
+    public function delete_confirm($enc_id)
+    {
+        $id = Decrypt($enc_id);
+        if (empty($id)) {
+            return redirect()->to('/product');
+        }
+               
+        $product_model = new ProductModel();
+        $product = $product_model->find($id);                    
+           if(!$product) {
+             return redirect()->to('/product');
+           }
 
+            $product_model->delete($id);
 
+            return redirect()->to('/product');
     }
-
-
-
-
-
-
-
-
-
 }
