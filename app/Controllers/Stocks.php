@@ -12,9 +12,10 @@ class Stocks extends BaseController
     {
 
     $products_model = new ProductModel();
-    $products = $products_model->where('id_restaurant,', session()-> user['id_restaurant']->findAll());
-
-            
+  
+  $products = $products_model->where('id_restaurant', session()->user['id_restaurant'])->findAll();
+ 
+ 
 
         $data = [ 
             'title' => 'Stocks',
@@ -23,8 +24,8 @@ class Stocks extends BaseController
         ];
 
 
-
             return view('dashboard/stocks/index', $data);  
   
         }
 }
+

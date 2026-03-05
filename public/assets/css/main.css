@@ -184,3 +184,10 @@ body {
     color: rgb(143, 6, 6);
     
 }
+
+
+.stock-image{
+    max-width: 100px;
+    max-height: 100px;
+  
+}
